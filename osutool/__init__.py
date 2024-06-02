@@ -1,7 +1,5 @@
 '''
-Provides utility for compiling and extracting *osu!*-related filetypes,
-designed to be user-friendly and efficient, with a focus on simplicity and ease
-of use.
+Provides utility for compiling and extracting *osu!*-related filetypes.
 
 osutool is not affiliated with *osu!*. For official information about *osu!*, \
 visit [osu.ppy.sh](https://osu.ppy.sh).

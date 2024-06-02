@@ -12,7 +12,7 @@ multipurpose tool for *osu!* files
 
 ## Summary
 
-Provides utility for compiling and extracting *osu!*-related filetypes, designed to be user-friendly and efficient, with a focus on simplicity and ease of use.
+Provides utility for compiling and extracting *osu!*-related filetypes.
 
 - :snake: Supports Python 3.8 and above. Tested on Windows 10.
 - :construction: Work in progress. Features are not finalised and may be unstable.

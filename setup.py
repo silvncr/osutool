@@ -15,7 +15,7 @@ from setuptools import setup
 setup(
 	name=__module_name__,
 	version=__version__,
-	description=__doc__,
+	description=__doc__.split('\n')[0],
 	long_description=Path('README.md').read_text(),
 	long_description_content_type='text/markdown',
 	url=f'https://github.com/{__author__}/{__module_name__}',
