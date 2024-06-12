@@ -22,8 +22,7 @@ from colorama import init as colorama_init
 __author__ = 'silvncr'
 __license__ = 'MIT'
 __module_name__ = 'osutool'
-__python_version__ = '3.8'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 # main function

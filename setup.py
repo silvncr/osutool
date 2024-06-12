@@ -7,7 +7,6 @@ from osutool import (
     __doc__,
     __license__,
     __module_name__,
-    __python_version__,
     __version__,
 )
 from setuptools import setup
@@ -26,7 +25,7 @@ setup(
 	package_data={},
 	install_requires=['colorama==0.4.6'],
 	setup_requires=['pytest_runner'],
-	python_requires=f'>={__python_version__}',
+	python_requires='>=3.8',
 	scripts=[],
 	tests_require=['pytest'],
 	entry_points={'console_scripts': [f'{__module_name__}={__module_name__}:main']},
