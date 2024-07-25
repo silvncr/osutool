@@ -22,7 +22,7 @@ from colorama import init as colorama_init
 __author__ = 'silvncr'
 __license__ = 'MIT'
 __module_name__ = 'osutool'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 # main function
@@ -39,7 +39,7 @@ def main() -> None:
 	'''
 
 	# determine working directory
-	app_path = (
+	app_path = str(Path().cwd().absolute()) or (
 		os_path.dirname(executable)
 		if getattr(sys, 'frozen', False)
 		else sys_path[0]
