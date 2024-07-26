@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import sys
 from contextlib import suppress
-from msvcrt import getch
 from os import listdir, walk
 from os import path as os_path
 from pathlib import Path
@@ -18,6 +17,20 @@ from sys import path as sys_path
 from zipfile import BadZipFile, ZipFile
 
 from colorama import init as colorama_init
+
+getch_loaded = False
+
+try:
+	from msvcrt import getch  # type: ignore
+except ImportError:
+	try:
+		from getch import getch  # type: ignore
+	except ImportError:
+		pass
+	else:
+		getch_loaded = True
+else:
+	getch_loaded = True
 
 __author__ = 'silvncr'
 __license__ = 'MIT'
@@ -266,5 +279,11 @@ def main() -> None:
 		print(alert(TextColour.yellow, 'NOTICE', 'No valid files/folders found.', []))
 
 	# alert user of completion
-	print('\n\tFinished! Key to exit.')
-	getch()
+	if getch_loaded:
+		print('\n\tFinished! Press any key to exit.')
+		getch()
+	else:
+		input('\n\tFinished! Press Enter to exit.')
+
+	# exit
+	sys.exit(0)
