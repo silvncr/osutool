@@ -82,21 +82,21 @@ def main() -> None:
 
 	# if mode is set as an argument
 	try:
-		mode = sys.argv[1]
+		_mode = sys.argv[1]
 
 	# if mode is not set as an argument
 	except IndexError:
-		mode = ''
+		_mode = ''
 
 	# alert user of working directory
 	print()
 	print(alert(TextColour.grey, 'RUNNING', f'Working directory: {app_path}'))
 
 	# alert user of mode options and get user input
-	if not any(mode.lower().startswith(char) for char in ['c', 'e']):
+	if not any(_mode.lower().startswith(char) for char in ['c', 'e']):
 		print(alert(TextColour.yellow, 'NOTICE', 'Mode is not set.'))
-		while not any(mode.lower().startswith(char) for char in ['c', 'e']):
-			mode = input(
+		while not any(_mode.lower().startswith(char) for char in ['c', 'e']):
+			_mode = input(
 				alert(
 					TextColour.purple,
 					'INPUT',
@@ -104,6 +104,16 @@ def main() -> None:
 					['c', 'e'],
 				),
 			)
+
+	# set mode
+	mode = ''
+	if _mode.lower().startswith('c'):
+		mode = 'compile'
+	elif _mode.lower().startswith('e'):
+		mode = 'extract'
+	else:
+		msg = 'Mode must be either [c]ompile or [e]xtract.'
+		raise ValueError(msg)
 
 	# alert user of which mode was selected
 	print(alert(TextColour.grey, 'RUNNING', 'Mode is set to [].', [mode]))
