@@ -1,4 +1,7 @@
+from contextlib import suppress
+
 from osutool import main
 
 if __name__ == '__main__':
-	main()
+	with suppress(KeyboardInterrupt):
+		main()

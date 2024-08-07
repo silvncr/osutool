@@ -5,7 +5,11 @@ osutool is not affiliated with *osu!*. For official information about *osu!*,
 visit [osu.ppy.sh](https://osu.ppy.sh).
 '''
 
-from __future__ import annotations
+__author__ = 'silvncr'
+__license__ = 'MIT'
+__module__ = 'osutool'
+__version__ = '0.1.3'
+
 
 import sys
 from contextlib import suppress
@@ -31,11 +35,6 @@ except ImportError:
 		getch_loaded = True
 else:
 	getch_loaded = True
-
-__author__ = 'silvncr'
-__license__ = 'MIT'
-__module_name__ = 'osutool'
-__version__ = '0.1.2'
 
 
 # main function
@@ -68,7 +67,9 @@ def main() -> None:
 		yellow = '\033[93m'
 
 	# define alert function
-	def alert(_colour: str, _type: str, _body: str, _names: list[str] | None) -> str:
+	def alert(
+		_colour: str, _type: str, _body: str, _names: 'list[str] | None' = None,
+	) -> str:
 		for filename in _names or []:
 			_body = _body.replace(
 				'[]', f'{TextColour.blue}[{filename}]{TextColour.reset}', 1,
@@ -87,10 +88,13 @@ def main() -> None:
 	except IndexError:
 		mode = ''
 
-	# alert user of mode options and get user input
+	# alert user of working directory
 	print()
+	print(alert(TextColour.grey, 'RUNNING', f'Working directory: {app_path}'))
+
+	# alert user of mode options and get user input
 	if not any(mode.lower().startswith(char) for char in ['c', 'e']):
-		print(alert(TextColour.yellow, 'NOTICE', 'Mode is not set.', []))
+		print(alert(TextColour.yellow, 'NOTICE', 'Mode is not set.'))
 		while not any(mode.lower().startswith(char) for char in ['c', 'e']):
 			mode = input(
 				alert(
@@ -109,9 +113,6 @@ def main() -> None:
 
 	# failsafe
 	try:
-		# alert user of working directory
-		print(alert(TextColour.grey, 'RUNNING', f'Working directory: {app_path}', []))
-
 		# for every path
 		for _dir in walk(app_path):
 			# get folder name
@@ -122,8 +123,7 @@ def main() -> None:
 				alert(
 					TextColour.grey,
 					'RUNNING',
-					'Checking folder:' + (fn.replace(app_path, '') or '(root)'),
-					[],
+					'Checking folder: ' + (fn.replace(app_path, '') or '(root)'),
 				),
 			)
 
@@ -183,7 +183,7 @@ def main() -> None:
 
 				# catch errors
 				except (BadZipFile, FileNotFoundError, PermissionError) as e:
-					print(alert(TextColour.red, 'ERROR', f'{e}', []))
+					print(alert(TextColour.red, 'ERROR', f'{e}'))
 
 			# if folder contains .osz files and mode is set to extract
 			elif mode.lower().startswith('e') and any(
@@ -256,14 +256,14 @@ def main() -> None:
 								IsADirectoryError,
 								NotADirectoryError,
 							) as e:
-								print(alert(TextColour.red, 'ERROR', f'{e}', []))
+								print(alert(TextColour.red, 'ERROR', f'{e}'))
 
 							# success
 							else:
 								found_valid_files = True
 
 	except KeyboardInterrupt:
-		print(alert(TextColour.yellow, 'NOTICE', 'Interrupted by user.', []))
+		print(alert(TextColour.yellow, 'NOTICE', 'Interrupted by user.'))
 
 	except (
 		FileExistsError,
@@ -272,11 +272,11 @@ def main() -> None:
 		NotADirectoryError,
 		PermissionError,
 	) as e:
-		print(alert(TextColour.red, 'ERROR', f'{e}', []))
+		print(alert(TextColour.red, 'ERROR', f'{e}'))
 
 	# alert user if no actions were performed
 	if not found_valid_files:
-		print(alert(TextColour.yellow, 'NOTICE', 'No valid files/folders found.', []))
+		print(alert(TextColour.yellow, 'NOTICE', 'No valid files/folders found.'))
 
 	# alert user of completion
 	if getch_loaded:
@@ -287,3 +287,9 @@ def main() -> None:
 
 	# exit
 	sys.exit(0)
+
+
+# run main
+if __name__ == '__main__':
+	with suppress(KeyboardInterrupt):
+		main()
